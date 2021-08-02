@@ -8,19 +8,22 @@ package lab3_Java;
 import java.util.ArrayList;
 
 /**
- *
+ * Clase que permite guardar el objeto Usuario y manipular sus datos
+ * Esta clase servira para poder guardar, buscar, preguntar y manipular objetos del tipo usuario
  * @author Felipe Solís
  */
 public class ListaDeUsuarios {
     
     ArrayList<Usuario> listaDeUsuarios = new ArrayList();
     
-    public void addUsuario(Usuario usuario){ //Metodo que se encarga de agregar un usuario a la lista de usuarios y setear su ID a la correspondiente
+    //Metodo que se encarga de agregar un usuario a la lista de usuarios y setear su ID a la correspondiente
+    public void addUsuario(Usuario usuario){ 
         usuario.setId(listaDeUsuarios.size() + 1);
         listaDeUsuarios.add(usuario);
     }
     
-    public Boolean existeUsuario(String nombre, String contrasenia){ //Metodo que se encarga de preguntar si existe un usuario con el mismo nombre o contrasenia en la lista
+    //Metodo que se encarga de preguntar si existe un usuario con el mismo nombre o contrasenia en la lista
+    public Boolean existeUsuario(String nombre, String contrasenia){ 
         
         String nombreUsuario; //Variable que guardara el nombre del usuario temporalmente de la lista
         String contraseniaUsuario; //Variable que guardara la contrasenia del usuario temporalmente de la lista
