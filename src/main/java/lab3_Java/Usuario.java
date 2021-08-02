@@ -23,48 +23,81 @@ public class Usuario {
     Boolean sesion; //Variable que indica si un usuario esta activo o no
     
     //Constructor del usuario
-    public Usuario(String nombre, String contrasenia, int id, String fecha){
-        this.nombre = nombre;
-        this.contrasenia = contrasenia;
-        this.id = id;
+    public Usuario(){
+        this.nombre = "";
+        this.contrasenia = "";
+        this.id = 0;
         this.listaSeguidos = new ArrayList();
         this.listaSeguidores = new ArrayList();
         this.listaPublicaciones = new ListadePublicaciones();
-        this.fechaCreacion = fecha;
+        this.fechaCreacion = "";
         this.sesion = false;
     }
     
     //Selectores de la clase usuario
-    
-    public String obtenerNombre(){ //Selector que obtiene el nombre del usuario
+    public String getNombre(){ //Selector que obtiene el nombre del usuario
         return nombre;
     }
     
-    public String obtenerContrasenia(){ //Selector que obtiene la contrasenia del usuario
+    public String getContrasenia(){ //Selector que obtiene la contrasenia del usuario
         return contrasenia;
     }
     
-    public int obtenerID(){ //Selector que obtiene la ID del usuario
+    public int getID(){ //Selector que obtiene la ID del usuario
         return id;
     }
     
-    public ArrayList<String> obtenerListaSeguidos(){ //Selector que obtiene la lista de seguidos del usuario
+    public ArrayList<String> getListaSeguidos(){ //Selector que obtiene la lista de seguidos del usuario
         return listaSeguidos;
     }
     
-    public ArrayList<String> obtenerListaSeguidores(){ //Selector que obtiene la lista de seguidores del usuario
+    public ArrayList<String> getListaSeguidores(){ //Selector que obtiene la lista de seguidores del usuario
         return listaSeguidores;
     }
     
-    public ListaDePublicaciones obtenerListaPublicaciones(){ //Selector que obtiene la lista de publicaciones del usuario
+    public ListaDePublicaciones getListaPublicaciones(){ //Selector que obtiene la lista de publicaciones del usuario
         return listaPublicaciones;
     }
     
-    public String obtenerFecha(){ //Selector que obtiene la fecha de creacion del usuario
+    public String getFecha(){ //Selector que obtiene la fecha de creacion del usuario
         return fechaCreacion;
     }
     
-    public Boolean obtenerSesion(){ //Selector que obtiene la sesion del usuario
+    public Boolean getSesion(){ //Selector que obtiene la sesion del usuario
         return sesion;
     }
+    
+    //Modificadores de la clase usuario    
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setListaSeguidos(ArrayList<String> listaSeguidos) {
+        this.listaSeguidos = listaSeguidos;
+    }
+
+    public void setListaSeguidores(ArrayList<String> listaSeguidores) {
+        this.listaSeguidores = listaSeguidores;
+    }
+
+    public void setListaPublicaciones(ListaDePublicaciones listaPublicaciones) {
+        this.listaPublicaciones = listaPublicaciones;
+    }
+
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public void setSesion(Boolean sesion) {
+        this.sesion = sesion;
+    }  
 }
