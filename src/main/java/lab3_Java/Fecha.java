@@ -9,13 +9,6 @@ package lab3_Java;
  *
  * @author Felipe Solís
  */
-public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+public class Fecha {
     
 }
