@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class ListaDeUsuarios {
     
+    //Atributo de la clase ListaDeUsuarios
     ArrayList<Usuario> listaDeUsuarios = new ArrayList();
     
     //Metodo que se encarga de agregar un usuario a la lista de usuarios y setear su ID a la correspondiente

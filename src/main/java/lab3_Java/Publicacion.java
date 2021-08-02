@@ -6,11 +6,13 @@
 package lab3_Java;
 
 /**
- *
+ *  Clase que se usara para representar a las publicaciones
+ *  Con esta clase se guardaran todos los datos que corresponden a la publicacion de la red social
  * @author Felipe Solís
  */
 public class Publicacion {
     
+    //Atributos de la clase Publicacion
     int id;
     String contenido;
     String tipo;
@@ -18,6 +20,7 @@ public class Publicacion {
     String nombreAutor;
     ListaDeReacciones listaReacciones;
 
+    //Constructor de publicacion
     public Publicacion(){
         this.id = 0;
         this.contenido = "";
