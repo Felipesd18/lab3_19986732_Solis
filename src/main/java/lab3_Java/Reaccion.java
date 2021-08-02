@@ -15,7 +15,7 @@ public class Reaccion {
     //Atributos de la clase Reacciones
     int id; //Variable que guarda la id de la reaccion
     String nombreAutor; //Variable que guarda el nombre del usuario que reaccion
-    Fecha fechaReaccion; //Fecha de cuando se realizo la publicacion
+    String fechaReaccion; //Fecha de cuando se realizo la publicacion
     String contenido; //Variable que guarda el contenido de la reaccion
     String tipo; //Variable que guarda la el tipo de reaccion 
 
@@ -38,7 +38,7 @@ public class Reaccion {
         return nombreAutor;
     }
 
-    public Fecha getFechaReaccion() { //Metodo que selecciona la fecha de una reaccion
+    public String getFechaReaccion() { //Metodo que selecciona la fecha de una reaccion
         return fechaReaccion;
     }
 
@@ -60,7 +60,7 @@ public class Reaccion {
         this.nombreAutor = nombreAutor;
     }
 
-    public void setFechaReaccion(Fecha fechaReaccion) { //Metodo que modifica la fecha de una reaccion
+    public void setFechaReaccion(String fechaReaccion) { //Metodo que modifica la fecha de una reaccion
         this.fechaReaccion = fechaReaccion;
     }
 
