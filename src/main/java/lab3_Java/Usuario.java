@@ -23,10 +23,15 @@ public class Usuario {
     Boolean sesion; //Variable que indica si un usuario esta activo o no
     
     //Constructor del usuario
-    public Usuario(String nombre, String contrasenia, int id){
-        setNombre(nombre);
-        setContrasenia(contrasenia);
-        setID(id);
+    public Usuario(String nombre, String contrasenia, int id, String fecha){
+        this.nombre = nombre;
+        this.contrasenia = contrasenia;
+        this.id = id;
+        this.listaSeguidos = new ArrayList();
+        this.listaSeguidores = new ArrayList();
+        this.listaPublicaciones = new ListadePublicaciones();
+        this.fechaCreacion = fecha;
+        this.sesion = false;
     }
     
     //Selectores de la clase usuario
@@ -61,19 +66,5 @@ public class Usuario {
     
     public Boolean obtenerSesion(){ //Selector que obtiene la sesion del usuario
         return sesion;
-    }
-    
-    //Modificadores de la clase usuario
-    
-    public void setNombre(String nombre){ //Modificador que cambia el nombre del usuario
-        this.nombre = nombre;
-    }
-    
-    public void setContrasenia(String contrasenia){ //Modificador que cambia la contrasenia del usuario
-        this.contrasenia = contrasenia;
-    }
-    
-    public void setID(int id){ //Modificador que cambia la ID del usuario
-        this.id = id;
     }
 }
