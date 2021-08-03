@@ -23,26 +23,24 @@ public class ListaDeUsuarios {
         listaDeUsuarios.add(usuario);
     }
     
-    //Metodo que se encarga de autenticar a un usuario con el mismo nombre o contrasenia en la lista
-    //Dependiendo de su salida, nos indicara lo siguiente:
-    //2: Quiere decir que se encontro a un usuario con el mismo nombre y contrasenia
-    //1: Quiere decir que se encontro a un usuario con el mismo nombre
-    //0: Quiere decir que no se encontro a un usuario con el mismo nombre
-    public int authentication(String nombre, String contrasenia){ 
+    //Metodo que se encarga de calcular el tamanio del arreglo
+    public int tamanio(){
+        return listaDeUsuarios.size();
+    }
+    
+    //Metodo que se encarga de obtener a un usuario en la posicion i
+    public Usuario getUsuario(int i){
+        return listaDeUsuarios.get(i);
+    }
+    
+    //Metodo que se encarga de buscar a un usuario activo en la lista de usuarios
+    public int usuarioActivo(){
         
-        String nombreUsuario; //Variable que guardara el nombre del usuario temporalmente de la lista
-        String contraseniaUsuario; //Variable que guardara la contrasenia del usuario temporalmente de la lista
-        
-        for(int i=0; i < listaDeUsuarios.size() ; i++){ //Recorremos la lista con el for  
-            nombreUsuario = listaDeUsuarios.get(i).getNombre(); //Guardamos el nombre del usuario de la posicion i
-            contraseniaUsuario = listaDeUsuarios.get(i).getContrasenia(); //Guardamos la contrasenia del usuario en la posicion i
-            
-            if((nombreUsuario.equals(nombre)) && (contraseniaUsuario.equals(contrasenia))){ //Preguntamos si el nombre o la contrasenia recien obtenidas con iguales a las que son proporsionadas
-                return 2;
-            } else if (nombreUsuario.equals(nombre)){ //PReguntamos si existe el nombre solamente 
-                return 1;
+        for (int i = 0; i < listaDeUsuarios.size() ; i++){
+            if(listaDeUsuarios.get(i).sesion){
+                return i;
             }
-        }
-        return 0;
+        }      
+        return -1;
     }
 }

@@ -17,7 +17,7 @@ public class ListaDePublicaciones {
     //Atributo de la clase ListaDePublicaciones;
     ArrayList<Publicacion> listaDePublicacion = new ArrayList();
     
-    //Metodo que se encarga de agregar un usuario a la lista de publicacion y setear su ID a la correspondiente
+    //Metodo que se encarga de agregar una publicacion a la lista de publicacion y setear su ID a la correspondiente
     public void addPublicaccion(Publicacion publicacion){ 
         publicacion.setId(listaDePublicacion.size() + 1);
         listaDePublicacion.add(publicacion);

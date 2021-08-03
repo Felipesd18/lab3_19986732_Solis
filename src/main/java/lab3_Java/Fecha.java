@@ -19,7 +19,7 @@ public class Fecha {
     private static String tiempoActual; //Variable que guardara en dato String la fecha
     
     //Metodo para obtener la fecha actual 
-    public static String obtenerFechaActual(){
+    public String obtenerFechaActual(){
         Fecha.actualizarFechaActual(); //Actualizamos la fecha actual con el metodo actualizarFechaActual
         return tiempoActual; //Retornamos el dato String con la representacion de la fecha
     }
