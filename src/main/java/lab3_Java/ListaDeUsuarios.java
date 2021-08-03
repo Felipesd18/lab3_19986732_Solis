@@ -23,8 +23,12 @@ public class ListaDeUsuarios {
         listaDeUsuarios.add(usuario);
     }
     
-    //Metodo que se encarga de preguntar si existe un usuario con el mismo nombre o contrasenia en la lista
-    public Boolean existeUsuario(String nombre, String contrasenia){ 
+    //Metodo que se encarga de autenticar a un usuario con el mismo nombre o contrasenia en la lista
+    //Dependiendo de su salida, nos indicara lo siguiente:
+    //2: Quiere decir que se encontro a un usuario con el mismo nombre y contrasenia
+    //1: Quiere decir que se encontro a un usuario con el mismo nombre
+    //0: Quiere decir que no se encontro a un usuario con el mismo nombre
+    public int authentication(String nombre, String contrasenia){ 
         
         String nombreUsuario; //Variable que guardara el nombre del usuario temporalmente de la lista
         String contraseniaUsuario; //Variable que guardara la contrasenia del usuario temporalmente de la lista
@@ -33,10 +37,12 @@ public class ListaDeUsuarios {
             nombreUsuario = listaDeUsuarios.get(i).getNombre(); //Guardamos el nombre del usuario de la posicion i
             contraseniaUsuario = listaDeUsuarios.get(i).getContrasenia(); //Guardamos la contrasenia del usuario en la posicion i
             
-            if((nombreUsuario.equals(nombre)) || (contraseniaUsuario.equals(contrasenia))){ //Preguntamos si el nombre o la contrasenia recien obtenidas con iguales a las que son proporsionadas
-                return true;
+            if((nombreUsuario.equals(nombre)) && (contraseniaUsuario.equals(contrasenia))){ //Preguntamos si el nombre o la contrasenia recien obtenidas con iguales a las que son proporsionadas
+                return 2;
+            } else if (nombreUsuario.equals(nombre)){ //PReguntamos si existe el nombre solamente 
+                return 1;
             }
         }
-        return false;
+        return 0;
     }
 }
