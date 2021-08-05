@@ -287,15 +287,15 @@ public class Main {
                     
                     case 1: //Publicar
                         
-                        System.out.println("#####Publicar#####\nIngrese el tipo de publicacion:");
+                        System.out.println("\n#####Publicar#####\nIngrese el tipo de publicacion:");
                         String tipo = leerCarac.nextLine();
                         
-                        System.out.println("Ingrese el contenido de la publicacion");
+                        System.out.println("\nIngrese el contenido de la publicacion");
                         String contenido = leerCarac.nextLine();
                         
                         
                         ArrayList<String> listaNombres = new ArrayList();
-                        System.out.println("Desea publicar en perfil de amigos?\n1. Si\n2. No\n");
+                        System.out.println("\nDesea publicar en perfil de amigos?\n1. Si\n2. No\n");
                         System.out.println("Opcion:\n");
                         int respuesta = leerEntero.nextInt();
                         
@@ -314,7 +314,7 @@ public class Main {
                     
                     case 2: //Seguir
                         
-                        System.out.println("#####Seguir#####\nIngrese el nombre de usuario a quien quiere seguir");
+                        System.out.println("\n#####Seguir#####\nIngrese el nombre de usuario a quien quiere seguir");
                         
                         String nombre = leerCarac.nextLine();
                         
@@ -324,15 +324,15 @@ public class Main {
                     
                     case 3: //Compartir
                         
-                        System.out.println("######Compartir######\nIngrese la ID de la publicacion que quiere compartir:");
+                        System.out.println("\n######Compartir######\nIngrese la ID de la publicacion que quiere compartir:");
                         int id = leerEntero.nextInt();                        
                         
                         ArrayList<String> listaNombres2 = new ArrayList();
-                        System.out.println("Desea publicar en perfil de amigos?\n1. Si\n2. No");
+                        System.out.println("\nDesea publicar en perfil de amigos?\n1. Si\n2. No");
                         int respuesta2 = leerEntero.nextInt();
                         
                         if(respuesta2 == 1){
-                            System.out.println("Ingrese los nombres del usuario separados solo por ',':");
+                            System.out.println("\nIngrese los nombres del usuario separados solo por ',':");
                             String nombres = leerCarac.nextLine();
                             String[] aux = nombres.split(",");
                             for(int i = 0 ; i < aux.length ; i ++){
