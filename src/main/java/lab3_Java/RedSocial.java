@@ -22,6 +22,7 @@ public interface RedSocial {
     public void register(String Nombre, String contrasenia);
     public void login(String nombre, String contrasenia);
     public void logout();
+    public void follow(String nombre);
     public void post(String tipo, String contenido, ArrayList<String> listaNombres);
     public void share(int id, ArrayList<String> listaNombres);
     public void visualize();

@@ -8,7 +8,7 @@ package lab3_Java;
 /**
  * Clase que representa a una reaccion
  * Esta clase guarda toda la informacion correspondiente de una reaccion de un usuario hacia una publicacion
- * @author Felipe
+ * @author Felipe Solis
  */
 public class Reaccion {
     

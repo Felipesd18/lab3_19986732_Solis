@@ -31,14 +31,16 @@ public class Main {
             this.listaPublicaciones = new ListaDePublicaciones();
 
             }
-
-            //Metodo que se encarga de autenticar a un usuario con el mismo nombre o contrasenia en la lista
-            //Dependiendo de su salida, nos indicara lo siguiente:
-            //@param nombre nombre de la cuenta del usuario
-            //@param contrasenia contrasenia de la cuenta del usuario
-            //@return 2: Quiere decir que se encontro a un usuario con el mismo nombre y contrasenia
-            //@return 1: Quiere decir que se encontro a un usuario con el mismo nombre
-            //@return 0: Quiere decir que no se encontro a un usuario con el mismo nombre
+            
+            /**
+             * Metodo que se encarga de autenticar a un usuario con el mismo nombre o contrasenia en la lista
+             * Dependiendo de su salida, nos indicara lo siguiente:
+             * @param nombre nombre de la cuenta del usuario
+             * @param contrasenia contrasenia de la cuenta del usuario
+             * @return 2 Quiere decir que se encontro a un usuario con el mismo nombre y contrasenia
+             * @return 1 Quiere decir que se encontro a un usuario con el mismo nombre
+             * @return 0 Quiere decir que no se encontro a un usuario con el mismo nombre
+             */
             @Override
             public int authentication(String nombre, String contrasenia){ 
 
@@ -79,21 +81,86 @@ public class Main {
                 }
 
             }
-
-            //Metodo para ingresar a un usuario que ya ha sido registrado anteriormente en la red social
-            //@param nombre nombre de la cuenta a la cual se quiere ingresar
-            //@param contrasenia de la cuenta a la cual se quiere ingresar
+            
+            /**
+             * Metodo para ingresar a un usuario que ya ha sido registrado anteriormente en la red social
+             * @param nombre nombre de la cuenta a la cual se quiere ingresar
+             * @param contrasenia de la cuenta a la cual se quiere ingresar
+             */
             @Override
             public void login(String nombre, String contrasenia){
-
+                if(authentication(nombre, contrasenia) == 2){ //Preguntamos si el nombre y la contrasenia corresponde a un usuario registrado
+                    int posicion = listaDeUsuarios.getUsuarioPorNombre(nombre); //Buscamos la posicion del usuario con el nombre en la lista de usuarios
+                    listaDeUsuarios.getUsuario(posicion).setSesion(true); //Seteamos la sesion a true
+                }else{
+                    System.out.println("Las credenciales ingresadas no existen en la red social.");
+                }
+                System.out.println("Ingreso existoso.");
             }
+            
+            /**
+             * Metodo para deslogear a un usuario activo dentro de una red social
+             */
             @Override
             public void logout(){
-
+                int posicion = listaDeUsuarios.getUsuarioActivo(); //Buscamos la posicion del usuario activo 
+                listaDeUsuarios.getUsuario(posicion).setSesion(false); //Seteamos la sesion a false
             }
+            
+            /**
+             * Metodo que se encarga de a un usuario activo pueda seguir a otro usuario registrado en la red social
+             * @param nombre del usuario a seguir
+             */
+            public void follow(String nombre){
+                int posicionActivo = listaDeUsuarios.getUsuarioActivo(); //Obtenemos la posicion del usuario activo en la lista de usuarios
+                if(listaDeUsuarios.getUsuario(posicionActivo).nombre.equals(nombre)){ //Preguntamos si el nombre proporcionado es el mismo del usuario activvo
+                    System.out.println("No puedes seguirte a ti mismo");
+                }else{
+                    int posicion = listaDeUsuarios.getUsuarioPorNombre(nombre); //Obtenemos la posicion del usuario a seguir
+                    if(posicion == -1){
+                        System.out.println("El nombre que se ingreso no coincide con algun usuario en la red social");
+                    }else{
+                         ArrayList<String> listaNombres = listaDeUsuarios.getUsuario(posicionActivo).getListaSeguidos(); //Obtenemos la lista de seguidos del usuario activo
+                         listaNombres.add(nombre); //Agregamos el nombre del usuario a seguir
+                         listaDeUsuarios.getUsuario(posicionActivo).setListaSeguidos(listaNombres); //Actualizamos la lista de seguidos del usuario activo
+                         listaNombres = listaDeUsuarios.getUsuario(posicion).getListaSeguidores(); //Obtenemos la lista de seguidores del usuario a seguir
+                         listaNombres.add(listaDeUsuarios.getUsuario(posicionActivo).nombre); //Agregamos el nombre del usuario activo
+                         listaDeUsuarios.getUsuario(posicion).setListaSeguidores(listaNombres); //Actualizamos la lista de seguidores del usuario a seguir
+                    }
+                }
+            }
+            
+            /**
+             * Metodo para postear publicaciones dentro de una red social
+             * @param tipo string que indica el tipo de publicacion que se realizara
+             * @param contenido string que guarda el contenido de una publicacion
+             * @param listaNombres lista de string que guarda los nombres a quienes se le quiere publicar el post
+             */
             @Override
             public void post(String tipo, String contenido, ArrayList<String> listaNombres){
-
+                Fecha fechaActual = new Fecha(); //Creamos la fecha actual
+                String fechaPost = fechaActual.obtenerFechaActual(); //Guardamos la fecha actual como string
+                Publicacion publicacion = new Publicacion(); //Creamos un nuevo dato de publicacion
+                int posicionUsuarioActivo = listaDeUsuarios.getUsuarioActivo(); //Obtenemos el usuario activo de la red social
+                publicacion.setNombreAutor(listaDeUsuarios.getUsuario(posicionUsuarioActivo).nombre); //Seteamos el nombre del autor con el nombre del usuario activo
+                publicacion.setContenido(contenido); //Setemaos el contenido con el contenido entregado
+                publicacion.setFechaRealizado(fechaPost); //Seteamos la fecha con la fecha actual
+                listaPublicaciones.addPublicaccion(publicacion); //Agregamos la publicacion en la lista de publicaciones
+                publicacion = listaPublicaciones.getPublicacion(listaPublicaciones.tamanio() - 1); //Obtenemos la publicacion de nuevo, esto para actualizar el ID correspondiente
+                ListaDePublicaciones listaPublicacionesAux = listaDeUsuarios.getUsuario(posicionUsuarioActivo).getListaPublicaciones(); //Obtenemos la lista de publicaciones del usuario
+                listaPublicacionesAux.addPublicaccion(publicacion);
+                listaDeUsuarios.getUsuario(posicionUsuarioActivo).setListaPublicaciones(listaPublicacionesAux);
+                
+                if(listaDeUsuarios.getUsuario(posicionUsuarioActivo).sigueAUsuarios(listaNombres)){
+                    for(int i = 0; i < listaNombres.size() ; i ++){
+                        listaPublicacionesAux = listaDeUsuarios.getUsuario(i).getListaPublicaciones();
+                        listaPublicacionesAux.addPublicaccion(publicacion);
+                        listaDeUsuarios.getUsuario(i).setListaPublicaciones(listaPublicacionesAux);
+                    }
+                }else{
+                    System.out.println("Uno de los nombres de usuarios que se introdujo no lo seguias, se logro publicar en tu perfil.");
+                }
+                System.out.println("Se logro realizar la publicacion");
             }
             @Override
             public void share(int id, ArrayList<String> listaNombres){
@@ -107,35 +174,42 @@ public class Main {
         
         Facebook facebook = new Facebook();
         int opcion = 0;
-        int usuarioActivo = -1;
-        Scanner scanner = new Scanner(System.in);
+        Scanner leerEntero = new Scanner(System.in);
+        Scanner leerCarac = new Scanner(System.in);
+        String nombreUsuario = "";
+        String contraseniaUsuario = ""; 
         
         do{
-            if(usuarioActivo == -1){
+            if(facebook.listaDeUsuarios.getUsuarioActivo() == -1){
                 System.out.println("#####" + facebook.nombre + "#####\nEscoja una opcion\n"
-                + "1.   Iniciar Sesion\n"
-                + "2.   Registrar\n"
-                + "3.   Visualizar Red Social\n"
-                + "4.   Salir\n"
+                + "1.   Iniciar Sesion.\n"
+                + "2.   Registrar.\n"
+                + "3.   Visualizar Red Social.\n"
+                + "4.   Salir.\n"
                 + "\n"
                 + "Ingrese aqui su opcion:"
                 );
-
-                opcion = scanner.nextInt();
+                opcion = leerEntero.nextInt();
                 
                 switch(opcion){
                     case 1:
+                        
+                        System.out.println("#####Inicio Sesion#####\nIngrese el nombre de usuario de su cuenta:");
+                        nombreUsuario = leerCarac.nextLine();
+                        System.out.println("A continuacion ingrese la contrasenia de su cuenta:");
+                        contraseniaUsuario = leerCarac.nextLine();
+                        
+                        facebook.login(nombreUsuario, contraseniaUsuario);
+                        
                         break;
                     case 2:
                         
                         System.out.println("#####Registro#####\nIngrese un nombre de usuario para su cuenta:");
-                        String nombreUsuario = scanner.nextLine();
-                        System.out.println("#####Registro#####\nA continuacion ingrese una contrasenia para su cuenta:");
-                        String contraseniaUsuario = scanner.nextLine();
+                        nombreUsuario = leerCarac.nextLine();
+                        System.out.println("A continuacion ingrese una contrasenia para su cuenta:");
+                        contraseniaUsuario = leerCarac.nextLine();
                         
-                        facebook.register(nombreUsuario, contraseniaUsuario);
-                        
-                        
+                        facebook.register(nombreUsuario, contraseniaUsuario);                        
                         break;
                     case 3:
                         break;
@@ -148,9 +222,45 @@ public class Main {
                         break;
                 }
                 
-            }
+            } else{
+                System.out.println("#####" + facebook.nombre + "#####\nEscoja una opcion\n"
+                + "1.   Postear.\n"
+                + "2.   Compartir.\n"
+                + "3.   Visualizar Red Social.\n"
+                + "4.   Salir de la cuenta.\n"
+                + "\n"
+                + "Ingrese aqui su opcion:"
+                );
+                
+                opcion = leerEntero.nextInt();
+                
+                switch(opcion){
+                    
+                    case 1:
+                        break;
+                    
+                    case 2:
+                        break;
+                    
+                    case 3:
+                        break;
+                    
+                    case 4:
+                        facebook.logout();
+                        System.out.println("Saliendo de la cuenta.");
+                        break;
+                    
+                    default:
+                        System.out.println("Opcion no valida. Ingrese una opcion valida.");
+                        break;
+                    
+                }
+                
+            }    
         }while(opcion != 0);
         
+        leerEntero.close();
+        leerCarac.close();
         
     }
     

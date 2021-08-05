@@ -37,69 +37,159 @@ public class Usuario {
     
     //Selectores de la clase usuario
     
+    /**
+     * Metodo que selecciona el nombre del usuario
+     * @return nombre del usuario
+     */
     public String getNombre(){ //Metodo que selecciona el nombre del usuario
         return nombre;
     }
     
-    public String getContrasenia(){ //Metodo que selecciona la contrasenia del usuario
+    /**
+     * Metodo que selecciona la contrasenia del usuario
+     * @return contrasenia del usuario
+     */
+    public String getContrasenia(){ 
         return contrasenia;
     }
     
-    public int getID(){ //Metodo que selecciona la ID del usuario
+    /**
+     * Metodo que selecciona la ID del usuario
+     * @return id del usuario
+     */
+    public int getID(){
         return id;
     }
     
-    public ArrayList<String> getListaSeguidos(){ //Metodo que selecciona la lista de seguidos del usuario
+    /**
+     * Metodo que selecciona la lista de seguidos del usuario
+     * @return lista seguidos del usuario
+     */
+    public ArrayList<String> getListaSeguidos(){
         return listaSeguidos;
     }
     
-    public ArrayList<String> getListaSeguidores(){ //Metodo que selecciona la lista de seguidores del usuario
+    /**
+     * Metodo que selecciona la lista de seguidores del usuario
+     * @return lista seguidores del usuario
+     */
+    public ArrayList<String> getListaSeguidores(){ 
         return listaSeguidores;
     }
     
-    public ListaDePublicaciones getListaPublicaciones(){ //Metodo que selecciona la lista de publicaciones del usuario
+    /**
+     * Metodo que selecciona la lista de publicaciones del usuario
+     * @return lista publicaciones del usuario
+     */
+    public ListaDePublicaciones getListaPublicaciones(){
         return listaPublicaciones;
     }
     
-    public String getFecha(){ //Metodo que selecciona la fecha de creacion del usuario
+    /**
+     * Metodo que selecciona la fecha de creacion del usuario
+     * @return fecha de creacion del usuario
+     */
+    public String getFecha(){ 
         return fechaCreacion;
     }
     
-    public Boolean getSesion(){ //Metodo que selecciona la sesion del usuario
+    /**
+     * Metodo que selecciona la sesion del usuario
+     * @return sesion del usuario
+     */
+    public Boolean getSesion(){ 
         return sesion;
     }
     
     //Modificadores de la clase usuario    
 
-    public void setNombre(String nombre) { //Metodo que modifica el nombre de un usuario
+    /**
+     * Metodo que modifica el nombre de un usuario
+     * @param nombre al cual se quiere setear el usuario
+     */
+    public void setNombre(String nombre) { 
         this.nombre = nombre;
     }
-
-    public void setContrasenia(String contrasenia) { //Metodo que modifica la contrasenia de un usuario
+    
+    /**
+     * Metodo que modifica la contrasenia de un usuario
+     * @param contrasenia al cual se quiere setear el usuario
+     */
+    public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
-
-    public void setId(int id) { //Metodo que modifica la id de un usuario
+    
+    /**
+     * Metodo que modifica la id de un usuario
+     * @param id al cual se quiere setear el usuario
+     */
+    public void setId(int id) {
         this.id = id;
     }
-
-    public void setListaSeguidos(ArrayList<String> listaSeguidos) { //Metodo que modifica la lista de seguidos de un usuario
+    
+    /**
+     * Metodo que modifica la lista de seguidos de un usuario
+     * @param listaSeguidos al cual se quiere setear el usuario
+     */
+    public void setListaSeguidos(ArrayList<String> listaSeguidos) {
         this.listaSeguidos = listaSeguidos;
     }
-
-    public void setListaSeguidores(ArrayList<String> listaSeguidores) { //Metodo que modifica la lista de seguidores de un usuario
+    
+    /**
+     * Metodo que modifica la lista de seguidores de un usuario
+     * @param listaSeguidores al cual se quiere setear el usuario
+     */
+    public void setListaSeguidores(ArrayList<String> listaSeguidores) {
         this.listaSeguidores = listaSeguidores;
     }
 
-    public void setListaPublicaciones(ListaDePublicaciones listaPublicaciones) { //Metodo que modifica la lista de publicaciones de un usuario
+    /**
+     * Metodo que modifica la lista de publicaciones de un usuari
+     * @param listaPublicaciones al cual se quiere setear el usuario
+     */
+    public void setListaPublicaciones(ListaDePublicaciones listaPublicaciones) {
         this.listaPublicaciones = listaPublicaciones;
     }
 
-    public void setFechaCreacion(String fechaCreacion) { //Metodo que modifica la fecha de un usuario
+    /**
+     * Metodo que modifica la fecha de un usuario
+     * @param fechaCreacion al cual se quiere setear el usuario
+     */
+    public void setFechaCreacion(String fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public void setSesion(Boolean sesion) { //Metodo que modifica la sesion de un usuario
+    /**
+     * Metodo que modifica la sesion de un usuario
+     * @param sesion al cual sen quiere setear el usuario
+     */
+    public void setSesion(Boolean sesion) {
         this.sesion = sesion;
-    }  
+    }
+    
+    /**
+     * Metodo que consulta si la lista de nombres dada son nombre de usuarios a quienes sigue el usuario
+     * @param listaNombres a los cuales se preguntara si sigue el usuario
+     * @return true si el usuario sigue a los usuario
+     * @return false si el usuario no sigue a los usuarios
+     */
+    public boolean sigueAUsuarios(ArrayList<String> listaNombres){
+        
+        if(listaSeguidos.size() == 0){
+            return false;
+        }
+        
+        for(int i = 0; i < listaNombres.size(); i++){
+            for(int j = 0; j < listaSeguidos.size(); j++){
+                if(listaNombres.get(i).equals(listaSeguidos.get(j))){
+                    j = listaSeguidos.size();
+                }else if(j == listaSeguidos.size() - 1){
+                    return false;
+                }
+                
+            }
+        }
+        
+        return true;
+    }
 }
