@@ -148,14 +148,14 @@ public class Main {
                 listaPublicaciones.addPublicaccion(publicacion); //Agregamos la publicacion en la lista de publicaciones
                 publicacion = listaPublicaciones.getPublicacion(listaPublicaciones.tamanio() - 1); //Obtenemos la publicacion de nuevo, esto para actualizar el ID correspondiente
                 ListaDePublicaciones listaPublicacionesAux = listaDeUsuarios.getUsuario(posicionUsuarioActivo).getListaPublicaciones(); //Obtenemos la lista de publicaciones del usuario
-                listaPublicacionesAux.addPublicaccion(publicacion);
-                listaDeUsuarios.getUsuario(posicionUsuarioActivo).setListaPublicaciones(listaPublicacionesAux);
+                listaPublicacionesAux.addPublicaccion(publicacion); //Agregamos la publicacion a la lista del usuario activo
+                listaDeUsuarios.getUsuario(posicionUsuarioActivo).setListaPublicaciones(listaPublicacionesAux); //Actualizamos la lista de publicaciones del usuario activo
                 
-                if(listaDeUsuarios.getUsuario(posicionUsuarioActivo).sigueAUsuarios(listaNombres)){
+                if(listaDeUsuarios.getUsuario(posicionUsuarioActivo).sigueAUsuarios(listaNombres)){ //Preguntamos si los nombres proporcionados los sigue el usuario activo
                     for(int i = 0; i < listaNombres.size() ; i ++){
-                        listaPublicacionesAux = listaDeUsuarios.getUsuario(i).getListaPublicaciones();
-                        listaPublicacionesAux.addPublicaccion(publicacion);
-                        listaDeUsuarios.getUsuario(i).setListaPublicaciones(listaPublicacionesAux);
+                        listaPublicacionesAux = listaDeUsuarios.getUsuario(i).getListaPublicaciones(); //Obtenemos la lista de publicaciones del usuario actual
+                        listaPublicacionesAux.addPublicaccion(publicacion); //Agregamos la publicacion 
+                        listaDeUsuarios.getUsuario(i).setListaPublicaciones(listaPublicacionesAux); //Actualizamos la lista de publicaciones del usuario actual
                     }
                 }else{
                     System.out.println("Uno de los nombres de usuarios que se introdujo no lo seguias, se logro publicar en tu perfil.");
@@ -192,7 +192,7 @@ public class Main {
                 opcion = leerEntero.nextInt();
                 
                 switch(opcion){
-                    case 1:
+                    case 1://Iniciar sesion
                         
                         System.out.println("#####Inicio Sesion#####\nIngrese el nombre de usuario de su cuenta:");
                         nombreUsuario = leerCarac.nextLine();
@@ -202,7 +202,7 @@ public class Main {
                         facebook.login(nombreUsuario, contraseniaUsuario);
                         
                         break;
-                    case 2:
+                    case 2: //Registrar
                         
                         System.out.println("#####Registro#####\nIngrese un nombre de usuario para su cuenta:");
                         nombreUsuario = leerCarac.nextLine();
@@ -211,9 +211,9 @@ public class Main {
                         
                         facebook.register(nombreUsuario, contraseniaUsuario);                        
                         break;
-                    case 3:
+                    case 3://Visualizar 
                         break;
-                    case 4:
+                    case 4://Salir
                         System.out.println("Saliendo de la Red Social.");
                         opcion = 0;
                         break;
@@ -224,10 +224,11 @@ public class Main {
                 
             } else{
                 System.out.println("#####" + facebook.nombre + "#####\nEscoja una opcion\n"
-                + "1.   Postear.\n"
-                + "2.   Compartir.\n"
-                + "3.   Visualizar Red Social.\n"
-                + "4.   Salir de la cuenta.\n"
+                + "1.   Publicar.\n"
+                + "2.   Seguir.\n"
+                + "3.   Compartir"
+                + "4.   Visualizar Red Social.\n"
+                + "5.   Salir de la cuenta.\n"
                 + "\n"
                 + "Ingrese aqui su opcion:"
                 );
@@ -236,20 +237,44 @@ public class Main {
                 
                 switch(opcion){
                     
-                    case 1:
+                    case 1: //Publicar
+                        
+                        System.out.println("#####Publicar#####\nIngrese el tipo de publicacion:");
+                        String tipo = leerCarac.nextLine();
+                        
+                        System.out.println("Ingrese el contenido de la publicacion");
+                        String contenido = leerCarac.nextLine();
+                        
+                        
+                        ArrayList<String> listaNombres = new ArrayList();
+                        System.out.println("Desea publicar en perfil de amigos?\n1. Si\n2. No");
+                        int respuesta = leerEntero.nextInt();
+                        
+                        if(respuesta == 1){
+                            System.out.println("Ingrese los nombres del usuario separados solo por ',':");
+                            String nombres = leerCarac.nextLine();
+                            String[] aux = nombres.split(",");
+                            for(int i = 0 ; i < aux.length ; i ++){
+                                listaNombres.add(aux[i]);
+                            }
+                        }
+                        
+                        facebook.post(tipo, contenido, listaNombres);
+                        
                         break;
                     
-                    case 2:
+                    case 2: //Seguir
                         break;
                     
-                    case 3:
+                    case 3: //Compartir
                         break;
                     
-                    case 4:
+                    case 4: //Visualizar
+                        break;
+                    case 5: //Salir de la cuenta
                         facebook.logout();
                         System.out.println("Saliendo de la cuenta.");
                         break;
-                    
                     default:
                         System.out.println("Opcion no valida. Ingrese una opcion valida.");
                         break;
