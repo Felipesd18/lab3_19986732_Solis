@@ -281,6 +281,7 @@ public class Main {
                 );
                 
                 opcion = leerEntero.nextInt();
+                System.out.println("");
                 
                 switch(opcion){
                     
@@ -361,8 +362,6 @@ public class Main {
         }while(opcion != 0);
         
         leerEntero.close();
-        leerCarac.close();
-        
-    }
-    
+        leerCarac.close();    
+    }   
 }
