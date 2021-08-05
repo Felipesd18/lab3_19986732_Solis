@@ -45,4 +45,19 @@ public class ListaDePublicaciones {
         return listaDePublicaciones.size();
     }
     
+    /**
+     * Metodo que se encarga de buscar una publicacion con la id
+     * @param id de la publicacion que se quiere buscar
+     * @return i con la posicion en la lista de publicaciones de la publicacion buscada o un -1 si no se encontro la publicacion
+     */
+    public int getPublicacionPorID(int id){
+        
+        for(int i = 0 ; i < listaDePublicaciones.size() ; i++){
+            if(listaDePublicaciones.get(i).id == id){//Preguntamos si la publicacion actual tiene el mismo id del que se busca
+                return i; //Retornamos la posicion de la publicacion encontrada
+            }
+        }
+        return -1; //Indicamos que no se encontro la publicacion
+    }
+    
 }

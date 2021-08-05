@@ -23,12 +23,12 @@ public class Main {
         
             String nombre; //Aqui guardaremos el nombre de la red social
             ListaDeUsuarios listaDeUsuarios; //Agui guardaremos a los usuarios de la red social
-            ListaDePublicaciones listaPublicaciones; //Aqui guardaremos las publicaciones de la red social
+            ListaDePublicaciones listaDePublicaciones; //Aqui guardaremos las publicaciones de la red social
 
             public Facebook(){
             this.nombre = "Facebook"; //Inicializamos el nombre con Facebook;
             this.listaDeUsuarios = new ListaDeUsuarios();
-            this.listaPublicaciones = new ListaDePublicaciones();
+            this.listaDePublicaciones = new ListaDePublicaciones();
 
             }
             
@@ -145,30 +145,62 @@ public class Main {
                 publicacion.setNombreAutor(listaDeUsuarios.getUsuario(posicionUsuarioActivo).nombre); //Seteamos el nombre del autor con el nombre del usuario activo
                 publicacion.setContenido(contenido); //Setemaos el contenido con el contenido entregado
                 publicacion.setFechaRealizado(fechaPost); //Seteamos la fecha con la fecha actual
-                listaPublicaciones.addPublicaccion(publicacion); //Agregamos la publicacion en la lista de publicaciones
-                publicacion = listaPublicaciones.getPublicacion(listaPublicaciones.tamanio() - 1); //Obtenemos la publicacion de nuevo, esto para actualizar el ID correspondiente
+                listaDePublicaciones.addPublicaccion(publicacion); //Agregamos la publicacion en la lista de publicaciones
+                publicacion = listaDePublicaciones.getPublicacion(listaDePublicaciones.tamanio() - 1); //Obtenemos la publicacion de nuevo, esto para actualizar el ID correspondiente
                 ListaDePublicaciones listaPublicacionesAux = listaDeUsuarios.getUsuario(posicionUsuarioActivo).getListaPublicaciones(); //Obtenemos la lista de publicaciones del usuario
                 listaPublicacionesAux.addPublicaccion(publicacion); //Agregamos la publicacion a la lista del usuario activo
                 listaDeUsuarios.getUsuario(posicionUsuarioActivo).setListaPublicaciones(listaPublicacionesAux); //Actualizamos la lista de publicaciones del usuario activo
                 
-                if(listaDeUsuarios.getUsuario(posicionUsuarioActivo).sigueAUsuarios(listaNombres)){ //Preguntamos si los nombres proporcionados los sigue el usuario activo
-                    for(int i = 0; i < listaNombres.size() ; i ++){
-                        listaPublicacionesAux = listaDeUsuarios.getUsuario(i).getListaPublicaciones(); //Obtenemos la lista de publicaciones del usuario actual
-                        listaPublicacionesAux.addPublicaccion(publicacion); //Agregamos la publicacion 
-                        listaDeUsuarios.getUsuario(i).setListaPublicaciones(listaPublicacionesAux); //Actualizamos la lista de publicaciones del usuario actual
+                if(listaNombres.size() != 0){//Preguntamos si la lista no esta vacia
+                    if(listaDeUsuarios.getUsuario(posicionUsuarioActivo).sigueAUsuarios(listaNombres)){ //Preguntamos si los nombres proporcionados los sigue el usuario activo
+                        for(int i = 0; i < listaNombres.size() ; i ++){
+                            listaPublicacionesAux = listaDeUsuarios.getUsuario(i).getListaPublicaciones(); //Obtenemos la lista de publicaciones del usuario actual
+                            listaPublicacionesAux.addPublicaccion(publicacion); //Agregamos la publicacion 
+                            listaDeUsuarios.getUsuario(i).setListaPublicaciones(listaPublicacionesAux); //Actualizamos la lista de publicaciones del usuario actual
+                        }
+                    }else{
+                        System.out.println("Uno de los nombres de usuarios que se introdujo no lo seguias, se logro publicar en tu perfil.");
                     }
-                }else{
-                    System.out.println("Uno de los nombres de usuarios que se introdujo no lo seguias, se logro publicar en tu perfil.");
                 }
                 System.out.println("Se logro realizar la publicacion");
             }
+            
+            /**
+             * Metodo que se encarga de compartir una publicacion que esta en la red social
+             * @param id de la publicacion que se quiere compartir
+             * @param listaNombres de usuarios a quienes se quiere compartir la publicacion
+             */
             @Override
             public void share(int id, ArrayList<String> listaNombres){
-
+                int posicion = listaDePublicaciones.getPublicacionPorID(id); //Obtenemos la posible posicion de la publicacion dentro de la lista de publicaciones
+                
+                if(posicion == -1){ //Preguntamos si no se encontro la publicacion
+                    System.out.println("No se encontro la publicacion solicitada.");
+                }else{
+                    Publicacion publicacion = listaDePublicaciones.getPublicacion(posicion); //Guardamos la publicacion
+                    posicion = listaDeUsuarios.getUsuarioActivo(); //Obtenemos la posicion del usuario activo en la red social
+                    ListaDePublicaciones listaAux = listaDeUsuarios.getUsuario(posicion).listaPublicaciones; //Obtenemos la lista de publicaciones del usuario activo
+                    listaAux.addPublicaccion(publicacion); //Agregamos la publicacion a la lista de publicaciones del usuario activo
+                    listaDeUsuarios.getUsuario(posicion).setListaPublicaciones(listaAux); //Seteamos la lista de publicaciones del usuario activo
+                    
+                    if(listaDeUsuarios.getUsuario(posicion).sigueAUsuarios(listaNombres)){ //Preguntamos si el usuario sigue a los usuarios dados
+                        for(int i = 0; i < listaNombres.size() ; i ++){
+                            listaAux = listaDeUsuarios.getUsuario(i).getListaPublicaciones(); //Obtenemos la lista de publicaciones del usuario actual
+                            listaAux.addPublicaccion(publicacion); //Agregamos la publicacion 
+                            listaDeUsuarios.getUsuario(i).setListaPublicaciones(listaAux); //Actualizamos la lista de publicaciones del usuario actual
+                        }
+                        System.out.println("Se lorgro compartir la publicacion.");
+                    }else{
+                        System.out.println("Uno de los nombres de usuarios que se introdujo no lo seguias, se logro compartir en tu perfil.");
+                    }
+                }
+                
             }
             @Override
-            public void visualize(){
-
+            public String visualize(){
+                String redSocialString = "";
+                
+                return redSocialString;
             }
         }
         
@@ -226,7 +258,7 @@ public class Main {
                 System.out.println("#####" + facebook.nombre + "#####\nEscoja una opcion\n"
                 + "1.   Publicar.\n"
                 + "2.   Seguir.\n"
-                + "3.   Compartir"
+                + "3.   Compartir\n"
                 + "4.   Visualizar Red Social.\n"
                 + "5.   Salir de la cuenta.\n"
                 + "\n"

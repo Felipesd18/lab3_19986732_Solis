@@ -25,5 +25,5 @@ public interface RedSocial {
     public void follow(String nombre);
     public void post(String tipo, String contenido, ArrayList<String> listaNombres);
     public void share(int id, ArrayList<String> listaNombres);
-    public void visualize();
+    public String visualize();
 }
