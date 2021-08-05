@@ -60,4 +60,18 @@ public class ListaDePublicaciones {
         return -1; //Indicamos que no se encontro la publicacion
     }
     
+    /**
+     * Metodo que se encarga de pasar a string todas las publicaciones guardadas en la lista de publicaciones
+     * @return stringListaReacciones que guarda todas las publicaciones en formato string
+     */
+    public String pasarAStringListaPublicaciones(){
+        String stringListaReacciones = "";
+        
+        for(int i = 0; i < listaDePublicaciones.size() ; i++){
+            stringListaReacciones = stringListaReacciones + "####################\n" + listaDePublicaciones.get(i).pasarAStringPublicacion() + "####################\n";
+        }
+        
+        return stringListaReacciones;
+    }
+    
 }

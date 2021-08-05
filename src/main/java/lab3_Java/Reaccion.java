@@ -30,48 +30,99 @@ public class Reaccion {
 
     //Selectores de la clase Reaccion
     
-    public int getId() { //Metodo que selecciona la id de una reaccion
+    /**
+     * Metodo que seleciona la id de una reaccion
+     * @return id de la reaccion
+     */
+    public int getId() { 
         return id;
     }
 
-    public String getNombreAutor() { //Metodo que selecciona el nombre del autor de una reaccion
+    /**
+     * Metodo que selecciona el nombre del autor de una reaccion
+     * @return nombreAutor de la reaccion
+     */
+    public String getNombreAutor() {
         return nombreAutor;
     }
 
-    public String getFechaReaccion() { //Metodo que selecciona la fecha de una reaccion
+    /**
+     * Metodo que selecciona la fecha de una reaccion
+     * @return fechaReaccion de la reaccion
+     */
+    public String getFechaReaccion() {
         return fechaReaccion;
     }
 
-    public String getContenido() { //Metodo que selecciona el contenido de una reaccion
+    /**
+     * Metodo que selecciona el contenido de una reaccion
+     * @return contenido de la reaccion
+     */
+    public String getContenido() {
         return contenido;
     }
 
-    public String getTipo() { //Metodo que selecciona el tipo de una reaccion
+    /**
+     * Metodo que selecciona el tipo de una reaccion
+     * @return tipo de la reaccion
+     */
+    public String getTipo() {
         return tipo;
     }
 
     //Modificadores de la clase Reaccion
     
-    public void setId(int id) { //Metodo que modifica el id de una reaccion
+    /**
+     * Metodo que modifica el id de una reaccion
+     * @param id que se quiere setear la reaccion
+     */
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setNombreAutor(String nombreAutor) { //Metodo que modifica el nombre del autor de una reaccion
+    /**
+     * Metodo que modifica el nombre del autor de una reaccion
+     * @param nombreAutor que se quiere setear la reaccion
+     */
+    public void setNombreAutor(String nombreAutor) {
         this.nombreAutor = nombreAutor;
     }
 
-    public void setFechaReaccion(String fechaReaccion) { //Metodo que modifica la fecha de una reaccion
+    /**
+     * Metodo que modifica la fecha de una reaccion
+     * @param fechaReaccion que se quiere setear la reaccion
+     */
+    public void setFechaReaccion(String fechaReaccion) {
         this.fechaReaccion = fechaReaccion;
     }
 
-    public void setContenido(String contenido) { //Metodo que modifica el contenido de una reaccion
+    /**
+     * Metodo que modifica el contenido de una reaccion
+     * @param contenido que se quiere setear la reaccion
+     */
+    public void setContenido(String contenido) {
         this.contenido = contenido;
     }
 
-    public void setTipo(String tipo) { //Metodo que modifica el tipo de una reaccion
+    /**
+     * Metodo que modifica el tipo de una reaccion
+     * @param tipo que se quiere setear la reaccion
+     */
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
     
-    
+    /**
+     * Metodo que se encarga de pasar el contenido de una reaccion a string
+     * @return stringReaccion contenido de la reaccion en formato string
+     */
+    public String pasarAStringReaccion(){
+        String stringReaccion = 
+                "Tipo de Reaccion: " + tipo +
+                "\nID reaccion: " + id +
+                "\nAutor: "  + nombreAutor +
+                "\nContenido:\n" + contenido;
+        return stringReaccion;
+    }
     
 }

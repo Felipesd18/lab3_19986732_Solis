@@ -18,12 +18,18 @@ public class Fecha {
     
     private static String tiempoActual; //Variable que guardara en dato String la fecha
     
-    //Metodo para obtener la fecha actual 
+    /**
+     * Metodo para obtener la fecha actual 
+     * @return tiempoActual en formato string
+     */
     public String obtenerFechaActual(){
         Fecha.actualizarFechaActual(); //Actualizamos la fecha actual con el metodo actualizarFechaActual
         return tiempoActual; //Retornamos el dato String con la representacion de la fecha
     }
-    //Metodo para actualizar la fecha actual, ademas de pasar el dato a string 
+    
+    /**
+     * Metodo para actualizar la fecha actual, ademas de pasar el dato a string 
+     */
     public static void actualizarFechaActual(){
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); //Creamos un formato para la fecha
         Date date = new Date(); //Obtenemos la fecha actual

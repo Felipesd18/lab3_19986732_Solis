@@ -188,8 +188,33 @@ public class Usuario {
                 }
                 
             }
-        }
-        
+        }    
         return true;
     }
+    
+    /**
+     * Metodo que se encarga de pasar a string el contenido de un usuario
+     * @return stringUsuario con el contenido de un usuario en string
+     */
+    public String pasarAStringUsuario(){
+        String stringUsuario = 
+                "#####" + nombre + "#####\n" +
+                "Fecha de creacion del usuario: " + fechaCreacion + " ID: " + id + "\n" +
+                "Listado a quienes sigues:\n";
+        
+        for(int i = 0; i < listaSeguidos.size() ; i++){
+            stringUsuario = stringUsuario + "-" + listaSeguidos.get(i) + "\n";
+        }
+        
+        stringUsuario = stringUsuario + "Listado de quienes te siguen:\n";
+        
+        for(int i = 0; i < listaSeguidores.size() ; i++){
+            stringUsuario = stringUsuario + "-" + listaSeguidores.get(i) + "\n";
+        }
+        
+        stringUsuario = stringUsuario + "Listado de las publicaciones en tu perfil:\n" + listaPublicaciones.pasarAStringListaPublicaciones();
+
+        return stringUsuario;
+    }
+    
 }

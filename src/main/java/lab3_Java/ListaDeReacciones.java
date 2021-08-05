@@ -22,4 +22,19 @@ public class ListaDeReacciones {
         reaccion.setId(listaDeReacciones.size() + 1);
         listaDeReacciones.add(reaccion);
     }
+    
+    /**
+     * Metodo que se encarga de pasar a string todas las reacciones guardadas en la lista de reacciones
+     * @return stringListaReacciones que guarda todas las reacciones en formato string
+     */
+    public String pasarAStringListaReacciones(){
+        String stringListaReacciones = "";
+        
+        for(int i = 0; i < listaDeReacciones.size() ; i++){
+            stringListaReacciones = stringListaReacciones + "####################\n" + listaDeReacciones.get(i).pasarAStringReaccion() + "####################\n";
+        }
+        
+        return stringListaReacciones;
+    }
+    
 }

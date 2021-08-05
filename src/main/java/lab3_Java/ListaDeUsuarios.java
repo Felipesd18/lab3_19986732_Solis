@@ -71,4 +71,18 @@ public class ListaDeUsuarios {
         }      
         return -1;
     }
+    
+    /**
+     * Metodo que se encarga de pasar a string la lista de usuarios
+     * @return stringListaUsuarios con el contenido de la lista de usuarios en string
+     */
+    public String pasarAStringListaUsuarios(){
+        String stringListaUsuarios = "";
+        
+        for(int i = 0; i < listaDeUsuarios.size() ; i++){
+            stringListaUsuarios = stringListaUsuarios + "####################\n" + listaDeUsuarios.get(i).pasarAStringUsuario() + "####################\n";
+        }
+        
+        return stringListaUsuarios;
+    }
 }

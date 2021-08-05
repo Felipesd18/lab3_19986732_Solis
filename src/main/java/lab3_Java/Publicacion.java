@@ -32,53 +32,114 @@ public class Publicacion {
 
     //Selectores de publicacion
     
-    public int getId() { //Metodo para obtener la id de la publicacion
+    /**
+     * Metodo para obtener la id de la publicacion
+     * @return id de la publicacion
+     */
+    public int getId() {
         return id;
     }
 
-    public String getContenido() { //Metodo para obtener el contenido de la publicacion
+    /**
+     * Metodo para obtener el contenido de la publicacion
+     * @return contenido de la publicacion
+     */
+    public String getContenido() {
         return contenido;
     }
 
-    public String getTipo() { //Metodo para obtener el tipo de publicacion
+    /**
+     * Metodo para obtener el tipo de publicacion
+     * @return tipo de la publicacion
+     */
+    public String getTipo() {
         return tipo;
     }
 
-    public String getFechaRealizado() { //Metodo para obtener la fecha de la publicacion
+    /**
+     * Metodo para obtener la fecha de la publicacion
+     * @return fechaRealizado de la publicacion
+     */
+    public String getFechaRealizado() {
         return fechaRealizado;
     }
 
-    public String getNombreAutor() { //Metodo para obtener el nombre del autor de la publicacion
+    /**
+     * Metodo para obtener el nombre del autor de la publicacion
+     * @return nombreAutor de la publicacion
+     */
+    public String getNombreAutor() {
         return nombreAutor;
     }
 
-    public ListaDeReacciones getListaReacciones() { //Metodo para pbtener la lista de reacciones de la publicacion
+    /**
+     * Metodo para pbtener la lista de reacciones de la publicacion
+     * @return listaReacciones de la publicacion
+     */
+    public ListaDeReacciones getListaReacciones() {
         return listaReacciones;
     }
     
     //Modificadores de publicacion
 
-    public void setId(int id) { //Metodo para modificar el id de la publicacion
+    /**
+     * Metodo para modificar el id de la publicacion
+     * @param id que se quiere setear la publicacion
+     */
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setContenido(String contenido) { //Metodo para modificar el contenido de la publicacion
+    /**
+     * Metodo para modificar el contenido de la publicacion
+     * @param contenido que se quiere setear la publicacion
+     */
+    public void setContenido(String contenido) {
         this.contenido = contenido;
     }
 
-    public void setTipo(String tipo) { //Metodo para modificar el tipo de publicacion
+    /**
+     * Metodo para modificar el tipo de publicacion
+     * @param tipo que se quiere setear la publicacion
+     */
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
-    public void setFechaRealizado(String fechaRealizado) { //Metodo para modificar la fecha de la publicacion
+    /**
+     * Metodo para modificar la fecha de la publicacion
+     * @param fechaRealizado que se quiere setear la publicacion
+     */
+    public void setFechaRealizado(String fechaRealizado) {
         this.fechaRealizado = fechaRealizado;
     }
 
-    public void setNombreAutor(String nombreAutor) { //Metodo para modificar el autor de la publicacion
+    /**
+     * Metodo para modificar el autor de la publicacion
+     * @param nombreAutor que se quiere setear la publicacion
+     */
+    public void setNombreAutor(String nombreAutor) {
         this.nombreAutor = nombreAutor;
     }
 
-    public void setListaReacciones(ListaDeReacciones listaReacciones) {//Metodo para modificar la lista de reacciones de la publicacion
+    /**
+     * Metodo para modificar la lista de reacciones de la publicacion
+     * @param listaReacciones que se quiere setear la publicacion
+     */
+    public void setListaReacciones(ListaDeReacciones listaReacciones) {
         this.listaReacciones = listaReacciones;
-    }  
+    }
+    
+    /**
+     * Metodo que se encarga de pasar a string el contenido de una publicacion
+     * @return stringPublicacion con todo el contenido de la publicacion en string
+     */
+    public String pasarAStringPublicacion(){
+        String stringPublicacion = 
+                "Tipo de Publicacion: " + tipo + " Fecha realizado la publicacion: " + fechaRealizado + " ID: " + id +
+                "\nAutor: " + nombreAutor +
+                "\nContenid:\n" + contenido +
+                "\nReacciones:\n" + listaReacciones.pasarAStringListaReacciones();
+        return stringPublicacion;
+    }
 }

@@ -196,9 +196,22 @@ public class Main {
                 }
                 
             }
+            /**
+             * Metodo que se encarga de pasar a string la red social
+             * @return redSocialString esta tendra dos salida y dependera si existe un usuario activo
+             */
             @Override
             public String visualize(){
                 String redSocialString = "";
+                int posicion = listaDeUsuarios.getUsuarioActivo(); //Obtenemos la posicion del usuario activo
+                if(posicion == -1){ //Preguntamos si no se encontro una posicion con el usuario activo
+                    redSocialString = 
+                            "#####" + nombre + "#####\n" +
+                            "Lista de Usuarios:\n" + listaDeUsuarios.pasarAStringListaUsuarios()+
+                            "Lista de Publicaciones:\n" + listaDePublicaciones.pasarAStringListaPublicaciones(); //Generamos el string de la red social completa
+                }else{
+                    redSocialString = listaDeUsuarios.getUsuario(posicion).pasarAStringUsuario(); //Generamos string con la informacion del usuario
+                }
                 
                 return redSocialString;
             }
@@ -243,7 +256,9 @@ public class Main {
                         
                         facebook.register(nombreUsuario, contraseniaUsuario);                        
                         break;
-                    case 3://Visualizar 
+                    case 3://Visualizar
+                        String stringRedSocial = facebook.visualize();
+                        System.out.println(stringRedSocial);
                         break;
                     case 4://Salir
                         System.out.println("Saliendo de la Red Social.");
@@ -279,7 +294,8 @@ public class Main {
                         
                         
                         ArrayList<String> listaNombres = new ArrayList();
-                        System.out.println("Desea publicar en perfil de amigos?\n1. Si\n2. No");
+                        System.out.println("Desea publicar en perfil de amigos?\n1. Si\n2. No\n");
+                        System.out.println("Opcion:\n");
                         int respuesta = leerEntero.nextInt();
                         
                         if(respuesta == 1){
@@ -296,12 +312,40 @@ public class Main {
                         break;
                     
                     case 2: //Seguir
+                        
+                        System.out.println("#####Seguir#####\nIngrese el nombre de usuario a quien quiere seguir");
+                        
+                        String nombre = leerCarac.nextLine();
+                        
+                        facebook.follow(nombre);
+                        
                         break;
                     
                     case 3: //Compartir
+                        
+                        System.out.println("######Compartir######\nIngrese la ID de la publicacion que quiere compartir:");
+                        int id = leerEntero.nextInt();                        
+                        
+                        ArrayList<String> listaNombres2 = new ArrayList();
+                        System.out.println("Desea publicar en perfil de amigos?\n1. Si\n2. No");
+                        int respuesta2 = leerEntero.nextInt();
+                        
+                        if(respuesta2 == 1){
+                            System.out.println("Ingrese los nombres del usuario separados solo por ',':");
+                            String nombres = leerCarac.nextLine();
+                            String[] aux = nombres.split(",");
+                            for(int i = 0 ; i < aux.length ; i ++){
+                                listaNombres2.add(aux[i]);
+                            }
+                        }
+                        
+                        facebook.share(id, listaNombres2);
+                        
                         break;
                     
                     case 4: //Visualizar
+                        String stringUsuario = facebook.visualize();
+                        System.out.println(stringUsuario);
                         break;
                     case 5: //Salir de la cuenta
                         facebook.logout();
