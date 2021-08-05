@@ -34,9 +34,11 @@ public class Main {
 
             //Metodo que se encarga de autenticar a un usuario con el mismo nombre o contrasenia en la lista
             //Dependiendo de su salida, nos indicara lo siguiente:
-            //2: Quiere decir que se encontro a un usuario con el mismo nombre y contrasenia
-            //1: Quiere decir que se encontro a un usuario con el mismo nombre
-            //0: Quiere decir que no se encontro a un usuario con el mismo nombre
+            //@param nombre nombre de la cuenta del usuario
+            //@param contrasenia contrasenia de la cuenta del usuario
+            //@return 2: Quiere decir que se encontro a un usuario con el mismo nombre y contrasenia
+            //@return 1: Quiere decir que se encontro a un usuario con el mismo nombre
+            //@return 0: Quiere decir que no se encontro a un usuario con el mismo nombre
             @Override
             public int authentication(String nombre, String contrasenia){ 
 
@@ -56,6 +58,9 @@ public class Main {
                 return 0;
             }
 
+            //Metodo que se encarga de registrar un usuario en la red social
+            //@param nombre de la cuenta del usuario
+            //@param contrasenia de la cuenta del usuario
             @Override
             public void register(String nombre, String contrasenia){
 
@@ -75,6 +80,9 @@ public class Main {
 
             }
 
+            //Metodo para ingresar a un usuario que ya ha sido registrado anteriormente en la red social
+            //@param nombre nombre de la cuenta a la cual se quiere ingresar
+            //@param contrasenia de la cuenta a la cual se quiere ingresar
             @Override
             public void login(String nombre, String contrasenia){
 
@@ -112,10 +120,9 @@ public class Main {
                 + "\n"
                 + "Ingrese aqui su opcion:"
                 );
-                
-                opcion = Integer.parseInt(scanner.nextLine());
-                
 
+                opcion = scanner.nextInt();
+                
                 switch(opcion){
                     case 1:
                         break;
@@ -127,6 +134,7 @@ public class Main {
                         String contraseniaUsuario = scanner.nextLine();
                         
                         facebook.register(nombreUsuario, contraseniaUsuario);
+                        
                         
                         break;
                     case 3:
