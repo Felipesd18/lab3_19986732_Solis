@@ -14,10 +14,6 @@ import java.util.ArrayList;
  */
 public interface RedSocial {
     
-    //Atributos
-    ListaDeUsuarios listaUsuarios = new ListaDeUsuarios();
-    ListaDePublicaciones listaPublicaciones = new ListaDePublicaciones();
-    
     public int authentication(String nombre, String contrasenia);
     public void register(String Nombre, String contrasenia);
     public void login(String nombre, String contrasenia);
