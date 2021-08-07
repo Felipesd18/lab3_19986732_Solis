@@ -221,9 +221,9 @@ public class Main {
                 int posicion = listaDeUsuarios.getUsuarioActivo(); //Obtenemos la posicion del usuario activo
                 if(posicion == -1){ //Preguntamos si no se encontro una posicion con el usuario activo
                     redSocialString = 
-                            "#####" + nombre + "#####\n" +
-                            "Lista de Usuarios:\n" + listaDeUsuarios.pasarAStringListaUsuarios()+
-                            "Lista de Publicaciones:\n" + listaDePublicaciones.pasarAStringListaPublicaciones(); //Generamos el string de la red social completa
+                            "###############" + nombre + "###############\n" +
+                            "###############Lista de Usuarios###############\n" + listaDeUsuarios.pasarAStringListaUsuarios()+
+                            "###############Lista de Publicaciones###############\n" + listaDePublicaciones.pasarAStringListaPublicaciones(); //Generamos el string de la red social completa
                 }else{
                     redSocialString = listaDeUsuarios.getUsuario(posicion).pasarAStringUsuario(); //Generamos string con la informacion del usuario
                 }
@@ -248,7 +248,7 @@ public class Main {
         do{
             if(facebook.listaDeUsuarios.getUsuarioActivo() == -1){
                 
-                System.out.println("#####" + facebook.nombre + "#####\nEscoja una opcion\n"
+                System.out.println("###############" + facebook.nombre + "###############\nEscoja una opcion\n"
                 + "1.   Iniciar Sesion.\n"
                 + "2.   Registrar.\n"
                 + "3.   Visualizar Red Social.\n"
@@ -293,7 +293,7 @@ public class Main {
                 }
                 
             } else{
-                System.out.println("#####" + facebook.nombre + "#####\nEscoja una opcion\n"
+                System.out.println("###############" + facebook.nombre + "###############\nEscoja una opcion\n"
                 + "1.   Publicar.\n"
                 + "2.   Seguir.\n"
                 + "3.   Compartir.\n"
