@@ -226,6 +226,7 @@ public class Main {
                             "###############Lista de Publicaciones###############\n" + listaDePublicaciones.pasarAStringListaPublicaciones(); //Generamos el string de la red social completa
                 }else{
                     redSocialString = listaDeUsuarios.getUsuario(posicion).pasarAStringUsuario(); //Generamos string con la informacion del usuario
+                    redSocialString = redSocialString + "\n###Lista de Publicaciones en la red###\n" + listaDePublicaciones.pasarAStringListaPublicaciones(); //Generamos un string de las publicaciones en la red social
                 }
                 
                 return redSocialString;
