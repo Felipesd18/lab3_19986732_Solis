@@ -51,7 +51,7 @@ public class Main {
                     nombreUsuario = listaDeUsuarios.getUsuario(i).getNombre(); //Guardamos el nombre del usuario de la posicion i
                     contraseniaUsuario = listaDeUsuarios.getUsuario(i).getContrasenia(); //Guardamos la contrasenia del usuario en la posicion i
 
-                    if((nombreUsuario.equals(nombre)) && (contraseniaUsuario.equals(contrasenia))){ //Preguntamos si el nombre o la contrasenia recien obtenidas con iguales a las que son proporsionadas
+                    if((nombreUsuario.equals(nombre)) && (contraseniaUsuario.equals(contrasenia))){ //Preguntamos si el nombre y la contrasenia recien obtenidas con iguales a las que son proporsionadas
                         return 2;
                     } else if (nombreUsuario.equals(nombre)){ //Preguntamos si existe el nombre solamente 
                         return 1;
@@ -92,10 +92,12 @@ public class Main {
                 if(authentication(nombre, contrasenia) == 2){ //Preguntamos si el nombre y la contrasenia corresponde a un usuario registrado
                     int posicion = listaDeUsuarios.getUsuarioPorNombre(nombre); //Buscamos la posicion del usuario con el nombre en la lista de usuarios
                     listaDeUsuarios.getUsuario(posicion).setSesion(true); //Seteamos la sesion a true
+                    System.out.println("Ingreso existoso.");
+                }else if(authentication(nombre, contrasenia) == 1){//Preguntamos si el nombre corresponde a un usuario registrado
+                    System.out.println("La contrasenia ingresada es incorrecta.");
                 }else{
                     System.out.println("Las credenciales ingresadas no existen en la red social.");
-                }
-                System.out.println("Ingreso existoso.");
+                }  
             }
             
             /**
@@ -126,6 +128,7 @@ public class Main {
                          listaNombres = listaDeUsuarios.getUsuario(posicion).getListaSeguidores(); //Obtenemos la lista de seguidores del usuario a seguir
                          listaNombres.add(listaDeUsuarios.getUsuario(posicionActivo).nombre); //Agregamos el nombre del usuario activo
                          listaDeUsuarios.getUsuario(posicion).setListaSeguidores(listaNombres); //Actualizamos la lista de seguidores del usuario a seguir
+                         System.out.println("Ahora sigues a " + nombre);
                     }
                 }
             }
@@ -147,22 +150,27 @@ public class Main {
                 publicacion.setFechaRealizado(fechaPost); //Seteamos la fecha con la fecha actual
                 listaDePublicaciones.addPublicaccion(publicacion); //Agregamos la publicacion en la lista de publicaciones
                 publicacion = listaDePublicaciones.getPublicacion(listaDePublicaciones.tamanio() - 1); //Obtenemos la publicacion de nuevo, esto para actualizar el ID correspondiente
-                ListaDePublicaciones listaPublicacionesAux = listaDeUsuarios.getUsuario(posicionUsuarioActivo).getListaPublicaciones(); //Obtenemos la lista de publicaciones del usuario
+                ListaDePublicaciones listaPublicacionesAux = listaDeUsuarios.getUsuario(posicionUsuarioActivo).getListaPublicacionesDeUsuario(); //Obtenemos la lista de publicaciones del usuario activo
                 listaPublicacionesAux.addPublicaccion(publicacion); //Agregamos la publicacion a la lista del usuario activo
-                listaDeUsuarios.getUsuario(posicionUsuarioActivo).setListaPublicaciones(listaPublicacionesAux); //Actualizamos la lista de publicaciones del usuario activo
+                listaDeUsuarios.getUsuario(posicionUsuarioActivo).setListaPublicacionesDeUsuario(listaPublicacionesAux); //Actualizamos la lista de publicaciones del usuario activo
                 
                 if(listaNombres.size() != 0){//Preguntamos si la lista no esta vacia
                     if(listaDeUsuarios.getUsuario(posicionUsuarioActivo).sigueAUsuarios(listaNombres)){ //Preguntamos si los nombres proporcionados los sigue el usuario activo
                         for(int i = 0; i < listaNombres.size() ; i ++){
-                            listaPublicacionesAux = listaDeUsuarios.getUsuario(i).getListaPublicaciones(); //Obtenemos la lista de publicaciones del usuario actual
-                            listaPublicacionesAux.addPublicaccion(publicacion); //Agregamos la publicacion 
-                            listaDeUsuarios.getUsuario(i).setListaPublicaciones(listaPublicacionesAux); //Actualizamos la lista de publicaciones del usuario actual
+                            for(int j = 0; j < listaDeUsuarios.tamanio(); j ++){
+                                if(listaNombres.get(i).equals(listaDeUsuarios.getUsuario(j).nombre)){ //Preguntamos si el nombre es igual al nombre del usuario en la lista
+                                    listaPublicacionesAux = listaDeUsuarios.getUsuario(j).getListaPublicacionesDeUsuario(); //Obtenemos la lista de publicaciones del usuario actual
+                                    listaPublicacionesAux.addPublicaccion(publicacion); //Agregamos la publicacion 
+                                    listaDeUsuarios.getUsuario(j).setListaPublicacionesDeUsuario(listaPublicacionesAux); //Actualizamos la lista de publicaciones del usuario actual
+                                    j = listaDeUsuarios.tamanio();
+                                }
+                            }
                         }
+                        System.out.println("Se logro realizar la publicacion");
                     }else{
                         System.out.println("Uno de los nombres de usuarios que se introdujo no lo seguias, se logro publicar en tu perfil.");
                     }
                 }
-                System.out.println("Se logro realizar la publicacion");
             }
             
             /**
@@ -179,19 +187,26 @@ public class Main {
                 }else{
                     Publicacion publicacion = listaDePublicaciones.getPublicacion(posicion); //Guardamos la publicacion
                     posicion = listaDeUsuarios.getUsuarioActivo(); //Obtenemos la posicion del usuario activo en la red social
-                    ListaDePublicaciones listaAux = listaDeUsuarios.getUsuario(posicion).listaPublicaciones; //Obtenemos la lista de publicaciones del usuario activo
+                    ListaDePublicaciones listaAux = listaDeUsuarios.getUsuario(posicion).listaPublicacionesDeUsuario; //Obtenemos la lista de publicaciones del usuario activo
                     listaAux.addPublicaccion(publicacion); //Agregamos la publicacion a la lista de publicaciones del usuario activo
-                    listaDeUsuarios.getUsuario(posicion).setListaPublicaciones(listaAux); //Seteamos la lista de publicaciones del usuario activo
+                    listaDeUsuarios.getUsuario(posicion).setListaPublicacionesDeUsuario(listaAux); //Seteamos la lista de publicaciones del usuario activo
                     
-                    if(listaDeUsuarios.getUsuario(posicion).sigueAUsuarios(listaNombres)){ //Preguntamos si el usuario sigue a los usuarios dados
-                        for(int i = 0; i < listaNombres.size() ; i ++){
-                            listaAux = listaDeUsuarios.getUsuario(i).getListaPublicaciones(); //Obtenemos la lista de publicaciones del usuario actual
-                            listaAux.addPublicaccion(publicacion); //Agregamos la publicacion 
-                            listaDeUsuarios.getUsuario(i).setListaPublicaciones(listaAux); //Actualizamos la lista de publicaciones del usuario actual
+                    if(listaNombres.size() != 0){//Preguntamos si la lista no esta vacia
+                        if(listaDeUsuarios.getUsuario(posicion).sigueAUsuarios(listaNombres)){ //Preguntamos si los nombres proporcionados los sigue el usuario activo
+                            for(int i = 0; i < listaNombres.size() ; i ++){
+                                for(int j = 0; j < listaDeUsuarios.tamanio(); j ++){
+                                    if(listaNombres.get(i).equals(listaDeUsuarios.getUsuario(j).nombre)){ //Preguntamos si el nombre es igual al nombre del usuario en la lista
+                                        listaAux = listaDeUsuarios.getUsuario(j).getListaPublicacionesDeUsuario(); //Obtenemos la lista de publicaciones del usuario actual
+                                        listaAux.addPublicaccion(publicacion); //Agregamos la publicacion 
+                                        listaDeUsuarios.getUsuario(j).setListaPublicacionesDeUsuario(listaAux); //Actualizamos la lista de publicaciones del usuario actual
+                                        j = listaDeUsuarios.tamanio();
+                                    }
+                                }
+                            }
+                            System.out.println("Se logro realizar la publicacion");
+                        }else{
+                            System.out.println("Uno de los nombres de usuarios que se introdujo no lo seguias, se logro publicar en tu perfil.");
                         }
-                        System.out.println("Se lorgro compartir la publicacion.");
-                    }else{
-                        System.out.println("Uno de los nombres de usuarios que se introdujo no lo seguias, se logro compartir en tu perfil.");
                     }
                 }
                 
@@ -219,13 +234,20 @@ public class Main {
         
         Facebook facebook = new Facebook();
         int opcion = 0;
-        Scanner leerEntero = new Scanner(System.in);
-        Scanner leerCarac = new Scanner(System.in);
         String nombreUsuario = "";
-        String contraseniaUsuario = ""; 
+        String contraseniaUsuario = "";
+        Scanner leerEntero = new Scanner(System.in);
+        Scanner leerCaracIniciarSesion = new Scanner(System.in);
+        Scanner leerCaracRegistrar = new Scanner(System.in);
+        Scanner leerCaracPublicar = new Scanner(System.in);
+        Scanner leerEnteroPublicar = new Scanner(System.in);
+        Scanner leerCaracSeguir = new Scanner(System.in);
+        Scanner leerCaracCompartir = new Scanner(System.in);
+        Scanner leerEnteroCompartir = new Scanner(System.in);
         
         do{
             if(facebook.listaDeUsuarios.getUsuarioActivo() == -1){
+                
                 System.out.println("#####" + facebook.nombre + "#####\nEscoja una opcion\n"
                 + "1.   Iniciar Sesion.\n"
                 + "2.   Registrar.\n"
@@ -240,9 +262,9 @@ public class Main {
                     case 1://Iniciar sesion
                         
                         System.out.println("#####Inicio Sesion#####\nIngrese el nombre de usuario de su cuenta:");
-                        nombreUsuario = leerCarac.nextLine();
+                        nombreUsuario = leerCaracIniciarSesion.nextLine();
                         System.out.println("A continuacion ingrese la contrasenia de su cuenta:");
-                        contraseniaUsuario = leerCarac.nextLine();
+                        contraseniaUsuario = leerCaracIniciarSesion.nextLine();
                         
                         facebook.login(nombreUsuario, contraseniaUsuario);
                         
@@ -250,11 +272,12 @@ public class Main {
                     case 2: //Registrar
                         
                         System.out.println("#####Registro#####\nIngrese un nombre de usuario para su cuenta:");
-                        nombreUsuario = leerCarac.nextLine();
+                        nombreUsuario = leerCaracRegistrar.nextLine();
                         System.out.println("A continuacion ingrese una contrasenia para su cuenta:");
-                        contraseniaUsuario = leerCarac.nextLine();
+                        contraseniaUsuario = leerCaracRegistrar.nextLine();
                         
-                        facebook.register(nombreUsuario, contraseniaUsuario);                        
+                        facebook.register(nombreUsuario, contraseniaUsuario);  
+                        
                         break;
                     case 3://Visualizar
                         String stringRedSocial = facebook.visualize();
@@ -273,7 +296,7 @@ public class Main {
                 System.out.println("#####" + facebook.nombre + "#####\nEscoja una opcion\n"
                 + "1.   Publicar.\n"
                 + "2.   Seguir.\n"
-                + "3.   Compartir\n"
+                + "3.   Compartir.\n"
                 + "4.   Visualizar Red Social.\n"
                 + "5.   Salir de la cuenta.\n"
                 + "\n"
@@ -281,31 +304,39 @@ public class Main {
                 );
                 
                 opcion = leerEntero.nextInt();
-                System.out.println("");
                 
                 switch(opcion){
                     
                     case 1: //Publicar
                         
                         System.out.println("\n#####Publicar#####\nIngrese el tipo de publicacion:");
-                        String tipo = leerCarac.nextLine();
+                        String tipo = leerCaracPublicar.nextLine();
                         
                         System.out.println("\nIngrese el contenido de la publicacion");
-                        String contenido = leerCarac.nextLine();
+                        String contenido = leerCaracPublicar.nextLine();
                         
                         
                         ArrayList<String> listaNombres = new ArrayList();
                         System.out.println("\nDesea publicar en perfil de amigos?\n1. Si\n2. No\n");
                         System.out.println("Opcion:\n");
-                        int respuesta = leerEntero.nextInt();
+                        int respuesta = leerEnteroPublicar.nextInt();
                         
                         if(respuesta == 1){
-                            System.out.println("Ingrese los nombres del usuario separados solo por ',':");
-                            String nombres = leerCarac.nextLine();
-                            String[] aux = nombres.split(",");
-                            for(int i = 0 ; i < aux.length ; i ++){
-                                listaNombres.add(aux[i]);
-                            }
+                            System.out.println("\nIngrese los nombres del(de los) usuario(s):");
+                            String nombreAPublicar;
+                            int respuesta2 = 1;
+                            do{
+                                nombreAPublicar = leerCaracPublicar.nextLine();
+                                listaNombres.add(nombreAPublicar);
+                                System.out.println("Quiere agregar mas nombres?");
+                                System.out.println("1.  Si\n2.    No");
+                                respuesta2 = leerEnteroPublicar.nextInt();
+                            }while(respuesta2 != 2);
+                        }
+                        
+                        System.out.println("Nombres a quienes vas a publicar");
+                        for(int i = 0; i < listaNombres.size(); i++){
+                            System.out.println(listaNombres.get(i));
                         }
                         
                         facebook.post(tipo, contenido, listaNombres);
@@ -316,7 +347,7 @@ public class Main {
                         
                         System.out.println("\n#####Seguir#####\nIngrese el nombre de usuario a quien quiere seguir");
                         
-                        String nombre = leerCarac.nextLine();
+                        String nombre = leerCaracSeguir.nextLine();
                         
                         facebook.follow(nombre);
                         
@@ -325,19 +356,23 @@ public class Main {
                     case 3: //Compartir
                         
                         System.out.println("\n######Compartir######\nIngrese la ID de la publicacion que quiere compartir:");
-                        int id = leerEntero.nextInt();                        
+                        int id = leerEnteroCompartir.nextInt();                        
                         
                         ArrayList<String> listaNombres2 = new ArrayList();
                         System.out.println("\nDesea publicar en perfil de amigos?\n1. Si\n2. No");
-                        int respuesta2 = leerEntero.nextInt();
+                        int respuesta2 = leerEnteroCompartir.nextInt();
                         
                         if(respuesta2 == 1){
-                            System.out.println("\nIngrese los nombres del usuario separados solo por ',':");
-                            String nombres = leerCarac.nextLine();
-                            String[] aux = nombres.split(",");
-                            for(int i = 0 ; i < aux.length ; i ++){
-                                listaNombres2.add(aux[i]);
-                            }
+                            System.out.println("\nIngrese los nombres del(de los) usuario(s):");
+                            String nombreACompartir;
+                            int respuesta3 = 1;
+                            do{
+                                nombreACompartir = leerCaracCompartir.nextLine();
+                                listaNombres2.add(nombreACompartir);
+                                System.out.println("Quiere agregar mas nombres?");
+                                System.out.println("1.  Si\n2.    No");
+                                respuesta3 = leerEnteroCompartir.nextInt();
+                            }while(respuesta3 != 2);
                         }
                         
                         facebook.share(id, listaNombres2);
@@ -358,10 +393,16 @@ public class Main {
                     
                 }
                 
-            }    
+            }
+            
         }while(opcion != 0);
-        
         leerEntero.close();
-        leerCarac.close();    
+        leerCaracIniciarSesion.close();
+        leerCaracRegistrar.close();
+        leerCaracPublicar.close();
+        leerEnteroPublicar.close();
+        leerCaracSeguir.close();
+        leerCaracCompartir.close();
+        leerEnteroCompartir.close();
     }   
 }

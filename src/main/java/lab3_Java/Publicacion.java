@@ -138,7 +138,7 @@ public class Publicacion {
         String stringPublicacion = 
                 "Tipo de Publicacion: " + tipo + " Fecha realizado la publicacion: " + fechaRealizado + " ID: " + id +
                 "\nAutor: " + nombreAutor +
-                "\nContenid:\n" + contenido +
+                "\nContenido:\n" + contenido +
                 "\nReacciones:\n" + listaReacciones.pasarAStringListaReacciones();
         return stringPublicacion;
     }

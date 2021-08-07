@@ -19,7 +19,7 @@ public class Usuario {
     int id; //Varibale que guardara la ID de un usuario
     ArrayList<String> listaSeguidos; //Lista de nombres de usuarios a quien sigue el usuario
     ArrayList<String> listaSeguidores; //Lista de nombres de usuarios a quien le siguen el usuario
-    ListaDePublicaciones listaPublicaciones; //Lista de publicaciones que ha creado o compartido el usuario
+    ListaDePublicaciones listaPublicacionesDeUsuario; //Lista de publicaciones que ha creado o compartido el usuario
     String fechaCreacion; //Fecha que indica cuando fue creado el usuario
     Boolean sesion; //Variable que indica si un usuario esta activo o no
     
@@ -30,7 +30,7 @@ public class Usuario {
         this.id = 0;
         this.listaSeguidos = new ArrayList();
         this.listaSeguidores = new ArrayList();
-        this.listaPublicaciones = new ListaDePublicaciones();
+        this.listaPublicacionesDeUsuario = new ListaDePublicaciones();
         this.fechaCreacion = "";
         this.sesion = false;
     }
@@ -81,8 +81,8 @@ public class Usuario {
      * Metodo que selecciona la lista de publicaciones del usuario
      * @return lista publicaciones del usuario
      */
-    public ListaDePublicaciones getListaPublicaciones(){
-        return listaPublicaciones;
+    public ListaDePublicaciones getListaPublicacionesDeUsuario(){
+        return listaPublicacionesDeUsuario;
     }
     
     /**
@@ -147,8 +147,8 @@ public class Usuario {
      * Metodo que modifica la lista de publicaciones de un usuari
      * @param listaPublicaciones al cual se quiere setear el usuario
      */
-    public void setListaPublicaciones(ListaDePublicaciones listaPublicaciones) {
-        this.listaPublicaciones = listaPublicaciones;
+    public void setListaPublicacionesDeUsuario(ListaDePublicaciones listaPublicaciones) {
+        this.listaPublicacionesDeUsuario = listaPublicaciones;
     }
 
     /**
@@ -212,7 +212,7 @@ public class Usuario {
             stringUsuario = stringUsuario + "-" + listaSeguidores.get(i) + "\n";
         }
         
-        stringUsuario = stringUsuario + "Listado de las publicaciones en tu perfil:\n" + listaPublicaciones.pasarAStringListaPublicaciones();
+        stringUsuario = stringUsuario + "Listado de las publicaciones en tu perfil:\n" + listaPublicacionesDeUsuario.pasarAStringListaPublicaciones();
 
         return stringUsuario;
     }

@@ -4,6 +4,8 @@ lab3_Java/ListaDeReacciones.java
  lab3_Java.ListaDeReacciones
 lab3_Java/Fecha.java
  lab3_Java.Fecha
+lab3_Java/RedSocial.java
+ lab3_Java.RedSocial
 lab3_Java/ListaDePublicaciones.java
  lab3_Java.ListaDePublicaciones
 lab3_Java/ListaDeUsuarios.java
@@ -12,8 +14,6 @@ lab3_Java/Publicacion.java
  lab3_Java.Publicacion
 lab3_Java/Usuario.java
  lab3_Java.Usuario
-lab3_Java/RedSocial.java
- lab3_Java.RedSocial
 lab3_Java/Main.java
  lab3_Java.Main
  lab3_Java.Main$1Facebook
