@@ -146,6 +146,7 @@ public class Main {
                 Publicacion publicacion = new Publicacion(); //Creamos un nuevo dato de publicacion
                 int posicionUsuarioActivo = listaDeUsuarios.getUsuarioActivo(); //Obtenemos el usuario activo de la red social
                 publicacion.setNombreAutor(listaDeUsuarios.getUsuario(posicionUsuarioActivo).nombre); //Seteamos el nombre del autor con el nombre del usuario activo
+                publicacion.setTipo(tipo); //Seteamos el tipo de la publicacion
                 publicacion.setContenido(contenido); //Setemaos el contenido con el contenido entregado
                 publicacion.setFechaRealizado(fechaPost); //Seteamos la fecha con la fecha actual
                 listaDePublicaciones.addPublicaccion(publicacion); //Agregamos la publicacion en la lista de publicaciones
