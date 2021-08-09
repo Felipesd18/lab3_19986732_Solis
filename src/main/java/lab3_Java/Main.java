@@ -115,20 +115,27 @@ public class Main {
              */
             public void follow(String nombre){
                 int posicionActivo = listaDeUsuarios.getUsuarioActivo(); //Obtenemos la posicion del usuario activo en la lista de usuarios
-                if(listaDeUsuarios.getUsuario(posicionActivo).nombre.equals(nombre)){ //Preguntamos si el nombre proporcionado es el mismo del usuario activvo
+                if(listaDeUsuarios.getUsuario(posicionActivo).nombre.equals(nombre)){ //Preguntamos si el nombre proporcionado es el mismo del usuario activo
                     System.out.println("No puedes seguirte a ti mismo");
                 }else{
                     int posicion = listaDeUsuarios.getUsuarioPorNombre(nombre); //Obtenemos la posicion del usuario a seguir
                     if(posicion == -1){
-                        System.out.println("El nombre que se ingreso no coincide con algun usuario en la red social");
+                        System.out.println("El nombre que se ingreso no coincide con algun usuario en la red social.");
                     }else{
-                         ArrayList<String> listaNombres = listaDeUsuarios.getUsuario(posicionActivo).getListaSeguidos(); //Obtenemos la lista de seguidos del usuario activo
+                        
+                        ArrayList<String> listaAux = new ArrayList();
+                        listaAux.add(nombre);
+                        if(listaDeUsuarios.getUsuario(posicionActivo).sigueAUsuarios(listaAux)){
+                            System.out.println("Ya sigues al usuario ingresado");
+                        }else{
+                            ArrayList<String> listaNombres = listaDeUsuarios.getUsuario(posicionActivo).getListaSeguidos(); //Obtenemos la lista de seguidos del usuario activo
                          listaNombres.add(nombre); //Agregamos el nombre del usuario a seguir
                          listaDeUsuarios.getUsuario(posicionActivo).setListaSeguidos(listaNombres); //Actualizamos la lista de seguidos del usuario activo
                          listaNombres = listaDeUsuarios.getUsuario(posicion).getListaSeguidores(); //Obtenemos la lista de seguidores del usuario a seguir
                          listaNombres.add(listaDeUsuarios.getUsuario(posicionActivo).nombre); //Agregamos el nombre del usuario activo
                          listaDeUsuarios.getUsuario(posicion).setListaSeguidores(listaNombres); //Actualizamos la lista de seguidores del usuario a seguir
                          System.out.println("Ahora sigues a " + nombre);
+                        }   
                     }
                 }
             }
